@@ -144,12 +144,12 @@ const handleSubmit = async () => {
   try {
     const avatarUrl = avatarCreator.value?.getAvatarUrl()
     await addStory({
-      familyMember: form.value.familyMember,
+      family_member: form.value.familyMember,
       author: form.value.author,
       title: form.value.title,
       content: form.value.content,
-      avatarUrl,
-      backgroundColor: form.value.backgroundColor
+      avatar_url: avatarUrl,
+      background_color: form.value.backgroundColor
     })
     close()
   } catch (error) {

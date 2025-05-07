@@ -124,12 +124,12 @@ const generateStory = () => {
 const saveStory = async () => {
   if (generatedStory.value && characterName.value) {
     const savedStory = await addStory({
-      familyMember: characterName.value,
+      family_member: characterName.value,
       author: 'Story Generator',
       title: generatedStory.value.title,
       content: generatedStory.value.content,
-      avatarUrl: avatarUrl.value,
-      backgroundColor: 'bg-sky-100'
+      avatar_url: avatarUrl.value,
+      background_color: 'bg-sky-100'
     })
     savedStoryId.value = savedStory.id
   }

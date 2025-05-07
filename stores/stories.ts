@@ -26,16 +26,27 @@ export const useStoriesStore = defineStore('stories', {
 
       this.isLoading = true
       try {
+        if (!user.value?.id) {
+          console.warn('Cannot load stories: User not authenticated')
+          this.stories = []
+          return
+        }
+        
         const { data, error } = await client
           .from('stories')
           .select('*')
-          .eq('user_id', user.value?.id)
+          .eq('user_id', user.value.id)
           .order('created_at', { ascending: false })
 
-        if (error) throw error
+        if (error) {
+          console.error('Error fetching stories:', error)
+          throw error
+        }
+        
         this.stories = data || []
       } catch (error) {
         console.error('Error loading stories:', error)
+        this.stories = []
       } finally {
         this.isLoading = false
       }
@@ -45,11 +56,16 @@ export const useStoriesStore = defineStore('stories', {
       const client = useSupabaseClient()
       const user = useSupabaseUser()
 
+      if (!user.value?.id) {
+        console.error('Error adding story: User not authenticated')
+        throw new Error('User not authenticated')
+      }
+
       try {
         const { data, error } = await client
           .from('stories')
           .insert([{
-            user_id: user.value?.id,
+            user_id: user.value.id,
             family_member: story.family_member,
             author: story.author,
             title: story.title,
@@ -60,7 +76,10 @@ export const useStoriesStore = defineStore('stories', {
           .select()
           .single()
 
-        if (error) throw error
+        if (error) {
+          console.error('Supabase error details:', error)
+          throw error
+        }
 
         this.stories.unshift(data)
         return data
