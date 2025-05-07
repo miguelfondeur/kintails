@@ -1,0 +1,22 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "*.ts",
+    "*.vue",
+    "components/**/*",
+    "composables/**/*",
+    "layouts/**/*",
+    "pages/**/*",
+    "plugins/**/*",
+    "utils/**/*"
+  ],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"]
+    }
+  }
+}

@@ -1,0 +1,144 @@
+<template>
+  <div class="bg-white rounded-lg shadow-xl p-6">
+    <div class="flex items-center gap-6 mb-8">
+      <ClientOnly>
+        <div class="relative w-32 h-32">
+          <img 
+            :src="avatarUrl" 
+            alt="Generated Avatar"
+            class="w-full h-full rounded-full border-4 border-white shadow-lg animate-float"
+          />
+        </div>
+      </ClientOnly>
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Random Story Generator</h2>
+        <p class="text-gray-600">Create a random story with a unique character</p>
+      </div>
+    </div>
+
+    <div class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Character Name</label>
+        <input 
+          v-model="characterName"
+          type="text"
+          required
+          placeholder="Enter a name"
+          class="w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500"
+        />
+      </div>
+
+      <div v-if="generatedStory" class="space-y-4">
+        <h3 class="text-xl font-semibold text-gray-900">{{ generatedStory.title }}</h3>
+        <p class="text-gray-700 whitespace-pre-line">{{ generatedStory.content }}</p>
+      </div>
+
+      <div class="flex gap-4">
+        <button
+          @click="generateNewAvatar"
+          class="flex-1 px-4 py-2 text-sm font-medium text-sky-700 bg-sky-50 border border-sky-200 rounded-md hover:bg-sky-100"
+        >
+          New Avatar
+        </button>
+        <button
+          @click="generateStory"
+          :disabled="!characterName"
+          class="flex-1 px-4 py-2 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-md hover:bg-sky-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Generate Story
+        </button>
+      </div>
+
+      <div v-if="generatedStory && !savedStoryId" class="flex justify-end">
+        <button
+          @click="saveStory"
+          class="px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700"
+        >
+          Save Story
+        </button>
+      </div>
+
+      <!-- Post-save navigation options -->
+      <div v-if="savedStoryId" class="flex justify-center gap-4">
+        <NuxtLink 
+          :to="`/stories/${savedStoryId}`"
+          class="px-4 py-2 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-md hover:bg-sky-700"
+        >
+          View Story
+        </NuxtLink>
+        <NuxtLink 
+          to="/stories"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200"
+        >
+          All Stories
+        </NuxtLink>
+        <button
+          @click="resetGenerator"
+          class="px-4 py-2 text-sm font-medium text-purple-700 bg-purple-50 border border-purple-200 rounded-md hover:bg-purple-100"
+        >
+          Generate Another
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import { useStoryTemplates } from '~/stores/storyTemplates'
+import { useStories } from '~/composables/useStories'
+
+const templates = useStoryTemplates()
+const { addStory } = useStories()
+
+const characterName = ref('')
+const seed = ref('initial')
+const generatedStory = ref<{ title: string; content: string } | null>(null)
+const savedStoryId = ref<number | null>(null)
+
+// Initialize seed on client-side only
+onMounted(() => {
+  seed.value = Math.random().toString(36).substring(7)
+})
+
+const avatarUrl = computed(() => {
+  const params = new URLSearchParams({
+    seed: seed.value,
+    backgroundColor: 'b6e3f4',
+    radius: '50'
+  })
+  return `https://api.dicebear.com/7.x/personas/svg?${params.toString()}`
+})
+
+const generateNewAvatar = () => {
+  seed.value = Math.random().toString(36).substring(7)
+}
+
+const generateStory = () => {
+  if (characterName.value) {
+    generatedStory.value = templates.generateStory(characterName.value)
+    savedStoryId.value = null
+  }
+}
+
+const saveStory = async () => {
+  if (generatedStory.value && characterName.value) {
+    const savedStory = await addStory({
+      familyMember: characterName.value,
+      author: 'Story Generator',
+      title: generatedStory.value.title,
+      content: generatedStory.value.content,
+      avatarUrl: avatarUrl.value,
+      backgroundColor: 'bg-sky-100'
+    })
+    savedStoryId.value = savedStory.id
+  }
+}
+
+const resetGenerator = () => {
+  characterName.value = ''
+  generatedStory.value = null
+  savedStoryId.value = null
+  generateNewAvatar()
+}
+</script>
