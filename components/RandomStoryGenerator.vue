@@ -130,7 +130,8 @@ const saveStory = async () => {
       content: generatedStory.value.content,
       avatar_url: avatarUrl.value,
       background_color: 'bg-sky-100'
-    })
+    });
+    console.log(savedStory);
     savedStoryId.value = savedStory.id
   }
 }

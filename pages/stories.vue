@@ -56,12 +56,12 @@
           <NuxtLink :to="`/stories/${story.id}`" class="block p-6">
             <div class="flex items-center mb-4">
               <img 
-                :src="story.avatarUrl" 
-                :alt="story.familyMember"
+                :src="story.avatar_url" 
+                :alt="story.family_member"
                 class="w-16 h-16 rounded-full mr-4 border-2 border-white shadow-md"
               />
               <div>
-                <h2 class="text-xl font-semibold text-gray-900">{{ story.familyMember }}</h2>
+                <h2 class="text-xl font-semibold text-gray-900">{{ story.family_member }}</h2>
                 <p class="text-sm text-gray-500">by {{ story.author }}</p>
               </div>
             </div>

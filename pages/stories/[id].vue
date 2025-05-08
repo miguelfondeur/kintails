@@ -40,12 +40,12 @@
 
           <div class="flex items-center mb-6">
             <img 
-              :src="story.avatarUrl" 
-              :alt="story.familyMember"
+              :src="story.avatar_url" 
+              :alt="story.family_member"
               class="w-24 h-24 rounded-full mr-6 border-4 border-white shadow-lg"
             />
             <div>
-              <h1 class="text-3xl font-bold text-gray-900 mb-1">{{ story.familyMember }}</h1>
+              <h1 class="text-3xl font-bold text-gray-900 mb-1">{{ story.family_member }}</h1>
               <p class="text-gray-600">Written by {{ story.author }}</p>
             </div>
           </div>
