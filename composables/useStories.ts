@@ -17,5 +17,3 @@ export const useStories = () => {
     deleteStory: store.deleteStory
   }
 }
-
-export type { Story } from '~/stores/stories'

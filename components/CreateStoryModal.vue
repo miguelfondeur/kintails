@@ -92,13 +92,16 @@
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
 import { ref } from 'vue'
 import { useStories } from '~/composables/useStories'
 
+// @ts-ignore
 const props = defineProps<{
   isOpen: boolean
 }>()
 
+// @ts-ignore
 const emit = defineEmits<{
   close: []
 }>()

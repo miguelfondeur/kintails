@@ -72,7 +72,7 @@ export const useStoriesStore = defineStore('stories', {
             content: story.content,
             avatar_url: story.avatar_url,
             background_color: story.background_color
-          }])
+          }] as any)
           .select()
           .single()
 
@@ -100,7 +100,7 @@ export const useStoriesStore = defineStore('stories', {
 
         if (error) throw error
 
-        this.stories = this.stories.filter(story => story.id !== id)
+        this.stories = this.stories.filter((story: { id: number }) => story.id !== id)
       } catch (error) {
         console.error('Error deleting story:', error)
         throw error

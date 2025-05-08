@@ -84,6 +84,7 @@
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
 import { ref, computed, onMounted } from 'vue'
 import { useStoryTemplates } from '~/stores/storyTemplates'
 import { useStories } from '~/composables/useStories'
