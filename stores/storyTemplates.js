@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 
-interface StoryTemplate {
-  title: string
-  content: string
-}
+/**
+ * @typedef {Object} StoryTemplate
+ * @property {string} title - The title of the story template
+ * @property {string} content - The content template with placeholders
+ */
 
-const templates: StoryTemplate[] = [
+/** @type {StoryTemplate[]} */
+const templates = [
   {
     title: "A Day at the Park",
     content: `It was a beautiful {timeOfDay} when {name} decided to visit the local park. The {weather} made it perfect for outdoor activities.
@@ -176,11 +178,21 @@ export const useStoryTemplates = defineStore('storyTemplates', {
   }),
 
   actions: {
-    getRandomItem<T>(array: T[]): T {
+    /**
+     * Get a random item from an array
+     * @param {Array} array - The array to select from
+     * @returns {*} A random item from the array
+     */
+    getRandomItem(array) {
       return array[Math.floor(Math.random() * array.length)]
     },
 
-    generateStory(name: string): { title: string; content: string } {
+    /**
+     * Generate a story based on a character name
+     * @param {string} name - The name to use in the story
+     * @returns {{title: string, content: string}} The generated story with title and content
+     */
+    generateStory(name) {
       const template = this.getRandomItem(this.templates)
       
       let content = template.content
@@ -213,4 +225,4 @@ export const useStoryTemplates = defineStore('storyTemplates', {
       }
     }
   }
-})
+}) 

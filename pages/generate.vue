@@ -21,6 +21,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ArrowLeft } from 'lucide-vue-next'
 </script>

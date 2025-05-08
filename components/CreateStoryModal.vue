@@ -91,20 +91,15 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// @ts-ignore
+<script setup>
 import { ref } from 'vue'
 import { useStories } from '~/composables/useStories'
 
-// @ts-ignore
-const props = defineProps<{
-  isOpen: boolean
-}>()
+const props = defineProps({
+  isOpen: Boolean
+})
 
-// @ts-ignore
-const emit = defineEmits<{
-  close: []
-}>()
+const emit = defineEmits(['close'])
 
 const { addStory } = useStories()
 const avatarCreator = ref()
@@ -128,7 +123,7 @@ const form = ref({
   backgroundColor: backgroundColors[0].class
 })
 
-const selectBackgroundColor = (color: { class: string }) => {
+const selectBackgroundColor = (color) => {
   form.value.backgroundColor = color.class
 }
 

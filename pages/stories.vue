@@ -53,7 +53,10 @@
             <Trash2 class="h-5 w-5" />
           </button>
 
-          <NuxtLink :to="`/stories/${story.id}`" class="block p-6">
+          <div 
+            @click="navigateToStory(story.id)"
+            class="block p-6 cursor-pointer"
+          >
             <div class="flex items-center mb-4">
               <img 
                 :src="story.avatar_url" 
@@ -67,7 +70,7 @@
             </div>
             <h3 class="text-lg font-medium text-gray-900 mb-2">{{ story.title }}</h3>
             <p class="text-gray-600 line-clamp-3">{{ story.content }}</p>
-          </NuxtLink>
+          </div>
         </div>
       </div>
     </main>
@@ -79,13 +82,18 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 /* eslint-disable */
-// @ts-ignore
 import { ref } from 'vue'
 import { Home, Plus, Trash2, Wand2 } from 'lucide-vue-next'
 import { useStories } from '~/composables/useStories'
 
 const { stories, isLoading, deleteStory } = useStories()
 const isCreateModalOpen = ref(false)
+
+// Add direct navigation function
+const navigateToStory = (id) => {
+  console.log('Navigating to story:', id)
+  window.location.href = `/stories/${id}` // Use direct URL navigation
+}
 </script>

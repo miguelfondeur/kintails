@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 const user = useSupabaseUser()
 const router = useRouter()
 

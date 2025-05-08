@@ -69,7 +69,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 const router = useRouter()
@@ -99,7 +99,7 @@ const handleLogin = async () => {
     if (err) throw err
     
     router.push('/stories')
-  } catch (err: any) {
+  } catch (err) {
     error.value = err.message
   } finally {
     loading.value = false
@@ -119,7 +119,7 @@ const handleGoogleLogin = async () => {
     })
 
     if (err) throw err
-  } catch (err: any) {
+  } catch (err) {
     error.value = err.message
     loading.value = false
   }

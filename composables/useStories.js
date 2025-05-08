@@ -1,6 +1,10 @@
 import { storeToRefs } from 'pinia'
 import { useStoriesStore } from '~/stores/stories'
 
+/**
+ * Composable function for accessing and managing stories
+ * @returns {Object} Story-related functions and reactive state
+ */
 export const useStories = () => {
   const store = useStoriesStore()
   const { stories, isLoading } = storeToRefs(store)
@@ -16,4 +20,4 @@ export const useStories = () => {
     addStory: store.addStory,
     deleteStory: store.deleteStory
   }
-}
+} 

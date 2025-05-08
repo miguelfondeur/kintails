@@ -83,8 +83,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// @ts-ignore
+<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useStoryTemplates } from '~/stores/storyTemplates'
 import { useStories } from '~/composables/useStories'
@@ -94,8 +93,8 @@ const { addStory } = useStories()
 
 const characterName = ref('')
 const seed = ref('initial')
-const generatedStory = ref<{ title: string; content: string } | null>(null)
-const savedStoryId = ref<number | null>(null)
+const generatedStory = ref(null)
+const savedStoryId = ref(null)
 
 // Initialize seed on client-side only
 onMounted(() => {

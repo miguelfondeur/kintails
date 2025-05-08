@@ -70,7 +70,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 /* eslint-disable */
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { useStories } from '~/composables/useStories';
@@ -81,12 +81,19 @@ const { stories, isLoading } = useStories()
 
 const currentId = computed(() => Number(route.params.id))
 
+// Add debug logs to help troubleshoot routing issues
+console.log('Route params:', route.params)
+console.log('Current ID:', currentId.value)
+console.log('All stories:', stories.value)
+
 const story = computed(() => {
-  return stories.value.find((s: { id: number }) => s.id === currentId.value)
+  const foundStory = stories.value.find(s => s.id === currentId.value)
+  console.log('Found story:', foundStory)
+  return foundStory
 })
 
 const currentIndex = computed(() => {
-  return stories.value.findIndex((s: { id: number }) => s.id === currentId.value)
+  return stories.value.findIndex(s => s.id === currentId.value)
 })
 
 const previousStoryId = computed(() => {
@@ -103,7 +110,9 @@ const nextStoryId = computed(() => {
   return null
 })
 
-const navigateToStory = (id: number) => {
-  router.push(`/stories/${id}`)
+const navigateToStory = (id) => {
+  console.log('Navigating to story:', id)
+  window.location.href = `/stories/${id}` // Use direct URL navigation as an alternative
+  // router.push(`/stories/${id}`)
 }
 </script>

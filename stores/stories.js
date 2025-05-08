@@ -1,21 +1,22 @@
 import { defineStore } from 'pinia'
 import { useSupabaseClient, useSupabaseUser } from '#imports'
 
-export interface Story {
-  id?: number
-  user_id: string
-  family_member: string
-  author: string
-  title: string
-  content: string
-  avatar_url: string
-  background_color: string
-  created_at?: string
-}
+/**
+ * @typedef {Object} Story
+ * @property {number} [id]
+ * @property {string} user_id
+ * @property {string} family_member
+ * @property {string} author
+ * @property {string} title
+ * @property {string} content
+ * @property {string} avatar_url
+ * @property {string} background_color
+ * @property {string} [created_at]
+ */
 
 export const useStoriesStore = defineStore('stories', {
   state: () => ({
-    stories: [] as Story[],
+    stories: [],
     isLoading: true
   }),
 
@@ -52,7 +53,16 @@ export const useStoriesStore = defineStore('stories', {
       }
     },
 
-    async addStory(story: Omit<Story, 'id' | 'user_id' | 'created_at'>) {
+    /**
+     * @param {Object} story - The story to add
+     * @param {string} story.family_member
+     * @param {string} story.author
+     * @param {string} story.title
+     * @param {string} story.content
+     * @param {string} story.avatar_url
+     * @param {string} story.background_color
+     */
+    async addStory(story) {
       const client = useSupabaseClient()
       const user = useSupabaseUser()
 
@@ -72,7 +82,7 @@ export const useStoriesStore = defineStore('stories', {
             content: story.content,
             avatar_url: story.avatar_url,
             background_color: story.background_color
-          }] as any)
+          }])
           .select()
           .single()
 
@@ -89,7 +99,10 @@ export const useStoriesStore = defineStore('stories', {
       }
     },
 
-    async deleteStory(id: number) {
+    /**
+     * @param {number} id - The ID of the story to delete
+     */
+    async deleteStory(id) {
       const client = useSupabaseClient()
 
       try {
@@ -100,11 +113,11 @@ export const useStoriesStore = defineStore('stories', {
 
         if (error) throw error
 
-        this.stories = this.stories.filter((story: { id: number }) => story.id !== id)
+        this.stories = this.stories.filter(story => story.id !== id)
       } catch (error) {
         console.error('Error deleting story:', error)
         throw error
       }
     }
   }
-})
+}) 

@@ -123,8 +123,12 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { BookOpen, Heart, PenLine, Sparkles, UserCircle, Wand2 } from 'lucide-vue-next'
+
+// Force Vue to recognize these components are used in the template
+// This empty object ensures Vue tracks these imports
+const icons = { BookOpen, Heart, PenLine, Sparkles, UserCircle, Wand2 }
 </script>
 
 <style scoped>
