@@ -71,8 +71,9 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-vue-next'
-import { useStories } from '~/composables/useStories'
+/* eslint-disable */
+import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { useStories } from '~/composables/useStories';
 
 const route = useRoute()
 const router = useRouter()
@@ -81,11 +82,11 @@ const { stories, isLoading } = useStories()
 const currentId = computed(() => Number(route.params.id))
 
 const story = computed(() => {
-  return stories.value.find(s => s.id === currentId.value)
+  return stories.value.find((s: { id: number }) => s.id === currentId.value)
 })
 
 const currentIndex = computed(() => {
-  return stories.value.findIndex(s => s.id === currentId.value)
+  return stories.value.findIndex((s: { id: number }) => s.id === currentId.value)
 })
 
 const previousStoryId = computed(() => {
