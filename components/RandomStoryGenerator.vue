@@ -64,16 +64,18 @@
         <!-- Post-save navigation options -->
         <div v-if="savedStoryId" class="flex justify-center gap-4">
           <NuxtLink 
-            :to="`/stories/${savedStoryId}`"
-            class="px-4 py-2.5 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-lg hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+            v-if="savedStoryId" 
+            :to="`/stories/view/${savedStoryId}`"
+            class="inline-flex items-center mt-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
+            <Eye class="h-5 w-5 mr-2" />
             View Story
           </NuxtLink>
           <NuxtLink 
-            to="/stories"
+            to="/stories/collections"
             class="px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
           >
-            All Stories
+            My Stories
           </NuxtLink>
           <button
             @click="resetGenerator"
@@ -99,6 +101,18 @@
   const generatedStory = ref(null)
   const savedStoryId = ref(null)
   const avatarReady = ref(false)
+  
+  // Available background colors (matching those in StoryModal)
+  const backgroundColors = [
+    'bg-sky-100',
+    'bg-rose-100',
+    'bg-indigo-100',
+    'bg-amber-100',
+    'bg-blue-100',
+    'bg-green-100',
+    'bg-purple-100',
+    'bg-orange-100'
+  ]
   
   // Initialize seed on client-side only
   onMounted(() => {
@@ -128,6 +142,12 @@
     }
   }
   
+  // Get a random background color
+  const getRandomBackgroundColor = () => {
+    const randomIndex = Math.floor(Math.random() * backgroundColors.length)
+    return backgroundColors[randomIndex]
+  }
+  
   const saveStory = async () => {
     if (generatedStory.value && characterName.value) {
       const savedStory = await addStory({
@@ -136,7 +156,7 @@
         title: generatedStory.value.title,
         content: generatedStory.value.content,
         avatar_url: avatarUrl.value,
-        background_color: 'bg-sky-100'
+        background_color: getRandomBackgroundColor()
       });
       console.log(savedStory);
       savedStoryId.value = savedStory.id

@@ -8,7 +8,7 @@
             :to="item.path"
             class="py-4 px-1 border-b-2 font-medium text-sm transition-colors"
             :class="[
-              route.path === item.path
+              isActive(item)
                 ? 'border-sky-500 text-sky-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             ]"
@@ -24,7 +24,27 @@
   const route = useRoute()
   
   const navItems = [
-    { name: 'All Stories', path: '/stories' },
+    { name: 'My Stories', path: '/stories/collections' },
+    { name: 'All Stories', path: '/stories/all' },
+    { name: 'Discover', path: '/stories/explore' },
     { name: 'Story Generator', path: '/generate' }
   ]
+  
+  // Define the type for nav items
+  type NavItem = {
+    name: string;
+    path: string;
+  }
+  
+  // Check if a nav item is active
+  const isActive = (item: NavItem) => {
+    // For the view page, highlight the appropriate section
+    if (route.path.startsWith('/stories/view/')) {
+      // When viewing a story, highlight "My Stories"
+      return item.path === '/stories/collections'
+    }
+    
+    // For other routes, check if we're on the item's path
+    return route.path === item.path || route.path.startsWith(item.path + '/')
+  }
   </script>

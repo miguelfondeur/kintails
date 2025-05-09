@@ -46,6 +46,10 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/svg+xml', href: 'https://api.dicebear.com/7.x/personas/svg?skinColor=d78774&hair=balding&body=checkered&nose=wrinkles&eyes=glasses&mouth=bigSmile&facialHair=walrus&hairColor=dee1f5&clothingColor=f3b63a&backgroundColor=bde4a7&facialHairProbability=100&radius=50' },
         { rel: 'apple-touch-icon', href: 'https://api.dicebear.com/7.x/personas/svg?skinColor=d78774&hair=balding&body=checkered&nose=wrinkles&eyes=glasses&mouth=bigSmile&facialHair=walrus&hairColor=dee1f5&clothingColor=f3b63a&backgroundColor=bde4a7&facialHairProbability=100&radius=50' }
       ]
+    },
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in'
     }
   },
   nitro: {
