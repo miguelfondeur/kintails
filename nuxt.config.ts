@@ -30,4 +30,12 @@ export default defineNuxtConfig({
       secure: true
     }
   },
+  
+  nitro: {
+    preset: 'netlify',
+    output: {
+      dir: '.output',
+      publicDir: '.output/public'
+    }
+  },
 });
