@@ -1,11 +1,11 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-white to-sky-50 px-4">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-amber-50 to-orange-50 px-4">
       <div class="max-w-md w-full">
         <div class="text-center mb-8">
           <img 
             src="https://api.dicebear.com/7.x/personas/svg?skinColor=d78774&hair=balding&body=checkered&nose=wrinkles&eyes=glasses&mouth=bigSmile&facialHair=walrus&hairColor=dee1f5&clothingColor=f3b63a&backgroundColor=bde4a7&facialHairProbability=100&radius=50" 
             alt="Kintales" 
-            class="w-20 h-20 mx-auto rounded-full shadow-lg mb-4" 
+            class="w-20 h-20 mx-auto rounded-full shadow-lg mb-4 border-4 border-white" 
           />
           <h1 class="text-3xl font-bold text-gray-900">Create Account</h1>
           <p class="text-gray-600 mt-2">Start sharing your family stories</p>

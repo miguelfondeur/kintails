@@ -1,8 +1,9 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-white to-sky-50">
-      <div class="text-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-4 border-sky-500 border-t-transparent mx-auto mb-4"></div>
-        <p class="text-gray-600">Completing authentication...</p>
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-green-50 to-teal-50">
+      <div class="text-center bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg">
+        <div class="animate-spin rounded-full h-16 w-16 border-4 border-sky-500 border-t-transparent mx-auto mb-6"></div>
+        <p class="text-gray-700 text-lg">Almost there...</p>
+        <p class="text-gray-500 mt-2">Completing your authentication</p>
       </div>
     </div>
 </template>
