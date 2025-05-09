@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: 'Hiragino Maru Gothic ProN', ui-rounded, Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+}

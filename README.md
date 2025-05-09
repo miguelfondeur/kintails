@@ -1,36 +1,75 @@
-# Family Stories App
+# Nuxt Minimal Starter
 
-A Nuxt.js application for creating and sharing family stories with Supabase authentication and database.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
 
+Make sure to install dependencies:
+
 ```bash
-# Install dependencies
+# npm
 npm install
 
-# Start development server
+# pnpm
+pnpm install
+
+# yarn
+yarn install
+
+# bun
+bun install
+```
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
 npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
 ```
 
-## Environment Variables
+## Production
 
-Make sure you have a `.env` file with the following variables:
+Build the application for production:
 
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
 ```
-SUPABASE_URL=your-supabase-url
-SUPABASE_KEY=your-supabase-anon-key
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
 ```
 
-## Database Setup
-
-Before using the application, you need to set up the Supabase database structure.
-
-Follow the instructions in [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) to create the necessary tables and set up Row-Level Security (RLS) policies.
-
-## Features
-
-- User authentication with Supabase Auth
-- Create and save family stories
-- Random story generator
-- Custom avatar creation
-- Responsive design
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

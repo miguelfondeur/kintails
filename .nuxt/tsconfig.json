@@ -26,6 +26,9 @@
       "@unhead/vue": [
         "../node_modules/@unhead/vue"
       ],
+      "@nuxt/devtools": [
+        "../node_modules/@nuxt/devtools"
+      ],
       "@vue/runtime-core": [
         "../node_modules/@vue/runtime-core"
       ],
@@ -74,8 +77,14 @@
       "assets": [
         "../assets"
       ],
+      "assets/*": [
+        "../assets/*"
+      ],
       "public": [
         "../public"
+      ],
+      "public/*": [
+        "../public/*"
       ],
       "#app": [
         "../node_modules/nuxt/dist/app"
@@ -85,9 +94,6 @@
       ],
       "vue-demi": [
         "../node_modules/nuxt/dist/app/compat/vue-demi"
-      ],
-      "pinia": [
-        "../node_modules/pinia/dist/pinia"
       ],
       "#vue-router": [
         "../node_modules/vue-router"
@@ -99,7 +105,7 @@
         "./imports"
       ],
       "#app-manifest": [
-        "./manifest/meta/dev"
+        "./manifest/meta/dev.json"
       ],
       "#components": [
         "./components"
@@ -143,12 +149,12 @@
     "../**/*",
     "../.config/nuxt.*",
     "./nuxt.d.ts",
-    "../node_modules/@nuxtjs/tailwindcss/runtime",
-    "../node_modules/@nuxtjs/tailwindcss/dist/runtime",
-    "../node_modules/@pinia/nuxt/runtime",
-    "../node_modules/@pinia/nuxt/dist/runtime",
     "../node_modules/@nuxtjs/supabase/runtime",
     "../node_modules/@nuxtjs/supabase/dist/runtime",
+    "../node_modules/@pinia/nuxt/runtime",
+    "../node_modules/@pinia/nuxt/dist/runtime",
+    "../node_modules/@nuxt/devtools/runtime",
+    "../node_modules/@nuxt/devtools/dist/runtime",
     "../node_modules/@nuxt/telemetry/runtime",
     "../node_modules/@nuxt/telemetry/dist/runtime",
     ".."
@@ -158,16 +164,16 @@
     "../.data",
     "../node_modules",
     "../node_modules/nuxt/node_modules",
-    "../node_modules/@nuxtjs/tailwindcss/node_modules",
-    "../node_modules/@pinia/nuxt/node_modules",
     "../node_modules/@nuxtjs/supabase/node_modules",
+    "../node_modules/@pinia/nuxt/node_modules",
+    "../node_modules/@nuxt/devtools/node_modules",
     "../node_modules/@nuxt/telemetry/node_modules",
-    "../node_modules/@nuxtjs/tailwindcss/runtime/server",
-    "../node_modules/@nuxtjs/tailwindcss/dist/runtime/server",
-    "../node_modules/@pinia/nuxt/runtime/server",
-    "../node_modules/@pinia/nuxt/dist/runtime/server",
     "../node_modules/@nuxtjs/supabase/runtime/server",
     "../node_modules/@nuxtjs/supabase/dist/runtime/server",
+    "../node_modules/@pinia/nuxt/runtime/server",
+    "../node_modules/@pinia/nuxt/dist/runtime/server",
+    "../node_modules/@nuxt/devtools/runtime/server",
+    "../node_modules/@nuxt/devtools/dist/runtime/server",
     "../node_modules/@nuxt/telemetry/runtime/server",
     "../node_modules/@nuxt/telemetry/dist/runtime/server",
     "../.output"
