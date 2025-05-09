@@ -92,7 +92,30 @@
               </div>
   
               <div>
-                <AvatarCreator ref="avatarCreator" @avatar-updated="updatePreviewAvatar" />
+                <div v-if="isEditMode && isGeneratedAvatar" class="bg-white rounded-lg shadow-xl p-6">
+                  <div class="flex items-center gap-6 mb-6">
+                    <div class="relative w-32 h-32">
+                      <img 
+                        :src="previewAvatar" 
+                        alt="Generated Avatar"
+                        class="w-32 h-32 max-w-none rounded-full border-4 border-white shadow-lg"
+                      />
+                    </div>
+                    <div>
+                      <h3 class="text-xl font-bold text-gray-900 mb-2">Generated Avatar</h3>
+                      <p class="text-gray-600">This avatar was created by the story generator</p>
+                    </div>
+                  </div>
+                  <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                    <p class="text-sm text-indigo-700">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                      </svg>
+                      Generated avatars cannot be edited. Create a new story if you want to customize the avatar.
+                    </p>
+                  </div>
+                </div>
+                <AvatarCreator v-else ref="avatarCreator" @avatar-updated="updatePreviewAvatar" />
               </div>
             </div>
           </form>
@@ -158,6 +181,11 @@
 
   const isEditMode = computed(() => !!props.story)
   
+  // Check if the avatar was generated from the story generator (has a seed parameter)
+  const isGeneratedAvatar = computed(() => {
+    return props.story?.avatar_url?.includes('seed=') || false
+  })
+  
   // Watch for story prop changes to update the form
   watch(() => props.story, (newStory) => {
     if (newStory) {
@@ -174,7 +202,7 @@
 
   // Set up avatar when in edit mode
   onMounted(() => {
-    if (props.isOpen && props.story && avatarCreator.value) {
+    if (props.isOpen && props.story && avatarCreator.value && !isGeneratedAvatar.value) {
       setTimeout(() => {
         avatarCreator.value.setAvatarUrl(props.story.avatar_url)
       }, 100)
@@ -207,7 +235,10 @@
   
   const handleSubmit = async () => {
     try {
-      const avatarUrl = avatarCreator.value?.getAvatarUrl() || previewAvatar.value
+      // Get the avatar URL - either from the editor or preserve the generated one
+      const avatarUrl = isGeneratedAvatar.value 
+        ? previewAvatar.value 
+        : avatarCreator.value?.getAvatarUrl() || previewAvatar.value
       
       const storyData = {
         family_member: form.value.familyMember,
