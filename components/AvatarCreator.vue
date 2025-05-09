@@ -278,6 +278,8 @@
     backgroundColor: 'bde4a7'
   })
   
+  const emit = defineEmits(['avatar-updated'])
+  
   const buildUrlParams = (opts) => {
     const mergedOptions = { ...options.value, ...opts }
     const params = new URLSearchParams()
@@ -299,7 +301,9 @@
   }
   
   const avatarUrl = computed(() => {
-    return `https://api.dicebear.com/7.x/personas/svg?${buildUrlParams()}`
+    const url = `https://api.dicebear.com/7.x/personas/svg?${buildUrlParams()}`
+    emit('avatar-updated', url)
+    return url
   })
   
   const getPreviewUrl = (overrides) => {

@@ -1,10 +1,32 @@
 <template>
-    <div v-if="isOpen" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl h-[90vh] overflow-auto">
-        <div class="p-6">
-          <h2 class="text-2xl font-bold mb-6">Create New Story</h2>
-          
-          <form @submit.prevent="handleSubmit" class="space-y-6">
+    <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center p-4 z-50">
+      <div class="fixed inset-0 bg-black/50 transition-opacity duration-300" @click="close"></div>
+      <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden relative z-10 transform transition-all duration-300">
+        <!-- Sticky Header -->
+        <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-800">Create New Story</h2>
+          <div class="flex items-center gap-3">
+            <transition name="fade">
+              <div v-if="previewAvatar" class="h-12 w-12 rounded-full overflow-hidden border-2 border-sky-100 shadow-sm">
+                <img :src="previewAvatar" alt="Avatar Preview" class="h-full w-full object-cover" />
+              </div>
+            </transition>
+            <button
+              type="button"
+              @click="close"
+              class="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100 transition-colors"
+              aria-label="Close"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-auto p-6 pb-24">
+          <form @submit.prevent="handleSubmit" class="space-y-6" id="storyForm">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-5">
                 <div>
@@ -70,26 +92,28 @@
               </div>
   
               <div>
-                <AvatarCreator ref="avatarCreator" />
+                <AvatarCreator ref="avatarCreator" @avatar-updated="updatePreviewAvatar" />
               </div>
             </div>
-  
-            <div class="flex justify-end space-x-3 pt-4">
-              <button
-                type="button"
-                @click="close"
-                class="px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                class="px-4 py-2.5 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-lg hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
-              >
-                Create Story
-              </button>
-            </div>
           </form>
+        </div>
+        
+        <!-- Sticky Footer -->
+        <div class="sticky bottom-0 bg-white border-t border-gray-200 px-6 py-4 flex justify-end space-x-3 z-10 shadow-md">
+          <button
+            type="button"
+            @click="close"
+            class="px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            form="storyForm"
+            class="px-4 py-2.5 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-lg hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors"
+          >
+            Create Story
+          </button>
         </div>
       </div>
     </div>
@@ -107,6 +131,7 @@
   
   const { addStory } = useStories()
   const avatarCreator = ref()
+  const previewAvatar = ref(null)
   
   const backgroundColors = [
     { class: 'bg-sky-100' },
@@ -127,6 +152,10 @@
     backgroundColor: backgroundColors[0].class
   })
   
+  const updatePreviewAvatar = (url) => {
+    previewAvatar.value = url
+  }
+  
   const selectBackgroundColor = (color) => {
     form.value.backgroundColor = color.class
   }
@@ -140,6 +169,7 @@
       content: '',
       backgroundColor: backgroundColors[0].class
     }
+    previewAvatar.value = null
   }
   
   const handleSubmit = async () => {
@@ -163,5 +193,15 @@
 <style scoped>
 input, textarea {
   caret-color: #4285F4; /* Ensures cursor is visible */
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
