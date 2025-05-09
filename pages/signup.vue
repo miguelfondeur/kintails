@@ -12,6 +12,24 @@
         </div>
   
         <div class="bg-white p-8 rounded-xl shadow-xl">
+          <!-- Google Signup Button - Now above the form -->
+          <button
+            type="button"
+            @click="handleGoogleSignup"
+            :disabled="loading"
+            class="w-full py-3 px-4 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50 flex items-center justify-center gap-2 mb-6"
+          >
+            <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5" />
+            Sign up with Google
+          </button>
+          
+          <div class="relative my-6">
+            <hr class="border-gray-300" />
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="bg-white px-4 text-sm text-gray-500">or continue with email</span>
+            </div>
+          </div>
+
           <form @submit.prevent="handleSignup" class="space-y-6">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
@@ -45,21 +63,14 @@
             >
               {{ loading ? 'Creating account...' : 'Create Account' }}
             </button>
-  
-            <button
-              type="button"
-              @click="handleGoogleSignup"
-              :disabled="loading"
-              class="w-full py-3 px-4 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50 flex items-center justify-center gap-2"
-            >
-              <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5" />
-              Sign up with Google
-            </button>
           </form>
   
           <div class="mt-6 text-center text-sm">
             <p class="text-gray-600">
               Already have an account?
+              <NuxtLink to="/login" class="text-sky-600 hover:text-sky-700 font-medium">
+                Sign in
+              </NuxtLink>
             </p>
           </div>
         </div>
