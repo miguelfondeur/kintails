@@ -32,12 +32,15 @@ export default defineNuxtConfig({
   },
   
   nitro: {
-    // Use the appropriate preset based on the deployment platform
-    preset: process.env.NETLIFY ? 'netlify' : process.env.VERCEL ? 'vercel' : 'node-server',
-    // Always use 'dist' as the output directory regardless of platform
+    // Static preset for static site generation
+    preset: 'static',
+    // Output to the dist directory
     output: {
       dir: 'dist',
       publicDir: 'dist'
     }
   },
+  
+  // Disable SSR for static site generation
+  ssr: false
 });
