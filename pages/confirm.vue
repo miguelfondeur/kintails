@@ -10,11 +10,35 @@
 <script setup>
     const user = useSupabaseUser()
     const router = useRouter()
+    const client = useSupabaseClient()
     
-    // Redirect to stories page once authenticated
+    // Check if user is already authenticated when the page loads
+    onMounted(async () => {
+      try {
+        // Get the hash from the URL if present (for OAuth callbacks)
+        const hash = window.location.hash
+        
+        if (hash && hash.includes('access_token')) {
+          // Let Supabase handle processing the hash for OAuth
+          await client.auth.getSession()
+        }
+        
+        // If user is already authenticated, redirect to stories
+        if (user.value) {
+          router.replace('/stories')
+        }
+      } catch (error) {
+        console.error('Authentication error:', error)
+        // In case of error, redirect to login
+        router.replace('/login')
+      }
+    })
+    
+    // Also watch for authentication state changes
+    // This handles the case when the auth state updates after page load
     watch(user, (newUser) => {
         if (newUser) {
-        router.push('/stories')
+          router.replace('/stories')
         }
-    })
+    }, { immediate: true })
 </script>
