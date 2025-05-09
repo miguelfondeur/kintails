@@ -6,44 +6,48 @@
           
           <form @submit.prevent="handleSubmit" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="space-y-4">
+              <div class="space-y-5">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Family Member Name</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Family Member Name</label>
                   <input 
                     v-model="form.familyMember"
                     type="text"
                     required
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500"
+                    placeholder="Who is this story about?"
+                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm"
                   />
                 </div>
   
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Author</label>
                   <input 
                     v-model="form.author"
                     type="text"
                     required
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500"
+                    placeholder="Who is writing this story?"
+                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm"
                   />
                 </div>
   
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
                   <input 
                     v-model="form.title"
                     type="text"
                     required
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500"
+                    placeholder="Give your story a title"
+                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm"
                   />
                 </div>
   
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Story</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Story</label>
                   <textarea 
                     v-model="form.content"
                     rows="6"
                     required
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500"
+                    placeholder="Once upon a time..."
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm resize-y"
                   ></textarea>
                 </div>
   
@@ -74,13 +78,13 @@
               <button
                 type="button"
                 @click="close"
-                class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+                class="px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                class="px-4 py-2 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-md hover:bg-sky-700"
+                class="px-4 py-2.5 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-lg hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
               >
                 Create Story
               </button>
@@ -155,3 +159,9 @@
     }
   }
   </script>
+
+<style scoped>
+input, textarea {
+  caret-color: #4285F4; /* Ensures cursor is visible */
+}
+</style>

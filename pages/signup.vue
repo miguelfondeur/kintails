@@ -12,7 +12,7 @@
         </div>
   
         <div class="bg-white p-8 rounded-xl shadow-xl">
-          <!-- Google Signup Button - Now above the form -->
+          <!-- Google Signup Button - Placed above the form -->
           <button
             type="button"
             @click="handleGoogleSignup"
@@ -32,36 +32,45 @@
 
           <form @submit.prevent="handleSignup" class="space-y-6">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
               <input
                 v-model="email"
                 type="email"
                 required
-                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                placeholder="your.email@example.com"
+                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
               />
             </div>
   
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
               <input
                 v-model="password"
                 type="password"
                 required
                 minlength="6"
-                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                placeholder="6+ characters"
+                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
               />
             </div>
   
-            <div v-if="error" class="p-4 bg-red-50 text-red-600 rounded-lg text-sm">
+            <div v-if="error" class="p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100">
               {{ error }}
             </div>
   
             <button
               type="submit"
               :disabled="loading"
-              class="w-full py-3 px-4 bg-sky-600 text-white rounded-lg hover:bg-sky-700 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50"
+              class="w-full py-3 px-4 bg-sky-600 text-white rounded-lg hover:bg-sky-700 focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              {{ loading ? 'Creating account...' : 'Create Account' }}
+              <span>{{ loading ? 'Creating account...' : 'Create Account' }}</span>
+              <svg v-if="!loading" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+              <svg v-if="loading" class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
             </button>
           </form>
   

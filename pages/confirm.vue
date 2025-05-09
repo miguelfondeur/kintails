@@ -1,9 +1,15 @@
 <template>
     <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-green-50 to-teal-50">
-      <div class="text-center bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg">
-        <div class="animate-spin rounded-full h-16 w-16 border-4 border-sky-500 border-t-transparent mx-auto mb-6"></div>
-        <p class="text-gray-700 text-lg">Almost there...</p>
-        <p class="text-gray-500 mt-2">Completing your authentication</p>
+      <div class="text-center bg-white p-8 rounded-lg shadow-lg border border-gray-100 max-w-md w-full">
+        <div class="relative mx-auto mb-6">
+          <div class="animate-spin rounded-full h-16 w-16 border-4 border-sky-500 border-t-transparent mx-auto"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-sky-500 text-lg">👋</span>
+          </div>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Almost there!</h2>
+        <p class="text-gray-600 mb-1">Completing your authentication...</p>
+        <p class="text-sm text-gray-500">You'll be redirected to your stories in a moment.</p>
       </div>
     </div>
 </template>

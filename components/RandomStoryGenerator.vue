@@ -21,17 +21,17 @@
   
       <div class="space-y-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Character Name</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Character Name</label>
           <input 
             v-model="characterName"
             type="text"
             required
-            placeholder="Enter a name"
-            class="w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500"
+            placeholder="Enter a name for your character"
+            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 shadow-sm"
           />
         </div>
   
-        <div v-if="generatedStory" class="space-y-4">
+        <div v-if="generatedStory" class="space-y-4 p-4 bg-sky-50 rounded-lg border border-sky-100">
           <h3 class="text-xl font-semibold text-gray-900">{{ generatedStory.title }}</h3>
           <p class="text-gray-700 whitespace-pre-line">{{ generatedStory.content }}</p>
         </div>
@@ -39,14 +39,14 @@
         <div class="flex gap-4">
           <button
             @click="generateNewAvatar"
-            class="flex-1 px-4 py-2 text-sm font-medium text-sky-700 bg-sky-50 border border-sky-200 rounded-md hover:bg-sky-100"
+            class="flex-1 px-4 py-2.5 text-sm font-medium text-sky-700 bg-sky-50 border border-sky-200 rounded-lg hover:bg-sky-100 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
           >
             New Avatar
           </button>
           <button
             @click="generateStory"
             :disabled="!characterName"
-            class="flex-1 px-4 py-2 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-md hover:bg-sky-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-lg hover:bg-sky-700 disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
           >
             Generate Story
           </button>
@@ -55,7 +55,7 @@
         <div v-if="generatedStory && !savedStoryId" class="flex justify-end">
           <button
             @click="saveStory"
-            class="px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700"
+            class="px-4 py-2.5 text-sm font-medium text-white bg-green-600 border border-transparent rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
             Save Story
           </button>
@@ -65,19 +65,19 @@
         <div v-if="savedStoryId" class="flex justify-center gap-4">
           <NuxtLink 
             :to="`/stories/${savedStoryId}`"
-            class="px-4 py-2 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-md hover:bg-sky-700"
+            class="px-4 py-2.5 text-sm font-medium text-white bg-sky-600 border border-transparent rounded-lg hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
           >
             View Story
           </NuxtLink>
           <NuxtLink 
             to="/stories"
-            class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200"
+            class="px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
           >
             All Stories
           </NuxtLink>
           <button
             @click="resetGenerator"
-            class="px-4 py-2 text-sm font-medium text-purple-700 bg-purple-50 border border-purple-200 rounded-md hover:bg-purple-100"
+            class="px-4 py-2.5 text-sm font-medium text-purple-700 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
           >
             Generate Another
           </button>
@@ -150,3 +150,25 @@
     generateNewAvatar()
   }
   </script>
+  
+  <style scoped>
+  input {
+    caret-color: #4285F4; /* Ensures cursor is visible */
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  </style>
