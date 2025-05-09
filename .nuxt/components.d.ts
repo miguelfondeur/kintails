@@ -15,6 +15,8 @@ interface _GlobalComponents {
       'AppFooter': typeof import("../components/AppFooter.vue")['default']
     'AppHeader': typeof import("../components/AppHeader.vue")['default']
     'AvatarCreator': typeof import("../components/AvatarCreator.vue")['default']
+    'AvatarCustomizationModal': typeof import("../components/AvatarCustomizationModal.vue")['default']
+    'AvatarEditor': typeof import("../components/AvatarEditor.vue")['default']
     'CreateStoryModal': typeof import("../components/CreateStoryModal.vue")['default']
     'RandomStoryGenerator': typeof import("../components/RandomStoryGenerator.vue")['default']
     'StoriesSubnav': typeof import("../components/StoriesSubnav.vue")['default']
@@ -48,6 +50,8 @@ interface _GlobalComponents {
       'LazyAppFooter': LazyComponent<typeof import("../components/AppFooter.vue")['default']>
     'LazyAppHeader': LazyComponent<typeof import("../components/AppHeader.vue")['default']>
     'LazyAvatarCreator': LazyComponent<typeof import("../components/AvatarCreator.vue")['default']>
+    'LazyAvatarCustomizationModal': LazyComponent<typeof import("../components/AvatarCustomizationModal.vue")['default']>
+    'LazyAvatarEditor': LazyComponent<typeof import("../components/AvatarEditor.vue")['default']>
     'LazyCreateStoryModal': LazyComponent<typeof import("../components/CreateStoryModal.vue")['default']>
     'LazyRandomStoryGenerator': LazyComponent<typeof import("../components/RandomStoryGenerator.vue")['default']>
     'LazyStoriesSubnav': LazyComponent<typeof import("../components/StoriesSubnav.vue")['default']>
@@ -87,6 +91,8 @@ declare module 'vue' {
 export const AppFooter: typeof import("../components/AppFooter.vue")['default']
 export const AppHeader: typeof import("../components/AppHeader.vue")['default']
 export const AvatarCreator: typeof import("../components/AvatarCreator.vue")['default']
+export const AvatarCustomizationModal: typeof import("../components/AvatarCustomizationModal.vue")['default']
+export const AvatarEditor: typeof import("../components/AvatarEditor.vue")['default']
 export const CreateStoryModal: typeof import("../components/CreateStoryModal.vue")['default']
 export const RandomStoryGenerator: typeof import("../components/RandomStoryGenerator.vue")['default']
 export const StoriesSubnav: typeof import("../components/StoriesSubnav.vue")['default']
@@ -120,6 +126,8 @@ export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/
 export const LazyAppFooter: LazyComponent<typeof import("../components/AppFooter.vue")['default']>
 export const LazyAppHeader: LazyComponent<typeof import("../components/AppHeader.vue")['default']>
 export const LazyAvatarCreator: LazyComponent<typeof import("../components/AvatarCreator.vue")['default']>
+export const LazyAvatarCustomizationModal: LazyComponent<typeof import("../components/AvatarCustomizationModal.vue")['default']>
+export const LazyAvatarEditor: LazyComponent<typeof import("../components/AvatarEditor.vue")['default']>
 export const LazyCreateStoryModal: LazyComponent<typeof import("../components/CreateStoryModal.vue")['default']>
 export const LazyRandomStoryGenerator: LazyComponent<typeof import("../components/RandomStoryGenerator.vue")['default']>
 export const LazyStoriesSubnav: LazyComponent<typeof import("../components/StoriesSubnav.vue")['default']>

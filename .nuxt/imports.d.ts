@@ -33,6 +33,7 @@ export { useSupabaseClient } from '../node_modules/@nuxtjs/supabase/dist/runtime
 export { useSupabaseCookieRedirect } from '../node_modules/@nuxtjs/supabase/dist/runtime/composables/useSupabaseCookieRedirect';
 export { useSupabaseSession } from '../node_modules/@nuxtjs/supabase/dist/runtime/composables/useSupabaseSession';
 export { useSupabaseUser } from '../node_modules/@nuxtjs/supabase/dist/runtime/composables/useSupabaseUser';
+export { useAvatarStore } from '../stores/avatar';
 export { useStoriesStore } from '../stores/stories';
 export { useStoryTemplates } from '../stores/storyTemplates';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';
