@@ -7,10 +7,11 @@
     
             <div class="max-w-4xl mx-auto text-center">
             <div class="relative mb-8 inline-block">
+                <div class="absolute top-0 left-0 right-0 bottom-0 w-32 h-32 mx-auto rounded-full shadow-2xl filter blur-md bg-sky-300 opacity-40 animate-float-shadow -z-10"></div>
                 <img 
                     src="https://api.dicebear.com/7.x/personas/svg?skinColor=d78774&hair=balding&body=checkered&nose=wrinkles&eyes=glasses&mouth=bigSmile&facialHair=walrus&hairColor=dee1f5&clothingColor=f3b63a&backgroundColor=bde4a7&facialHairProbability=100&radius=50" 
                     alt="Kintales" 
-                    class="w-32 h-32 mx-auto rounded-full shadow-xl animate-float" 
+                    class="w-32 h-32 mx-auto rounded-full shadow-xl animate-float relative z-10" 
                 />
             </div>
             
@@ -146,4 +147,23 @@
     100% { transform: rotate(0deg); }
   }
 
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .animate-float-shadow {
+    animation: floatShadow 6s ease-in-out infinite;
+  }
+
+  @keyframes floatShadow {
+    0% { transform: scale(1) translateY(0px); opacity: 0.5; }
+    50% { transform: scale(1.05) translateY(-12px); opacity: 0.4; }
+    100% { transform: scale(1) translateY(0px); opacity: 0.5; }
+  }
 </style>

@@ -17,6 +17,7 @@ interface _GlobalComponents {
     'CreateStoryModal': typeof import("../components/CreateStoryModal.vue")['default']
     'RandomStoryGenerator': typeof import("../components/RandomStoryGenerator.vue")['default']
     'StoriesSubnav': typeof import("../components/StoriesSubnav.vue")['default']
+    'StoryModal': typeof import("../components/StoryModal.vue")['default']
     'NuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'NuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
     'NuxtErrorBoundary': typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -46,6 +47,7 @@ interface _GlobalComponents {
     'LazyCreateStoryModal': LazyComponent<typeof import("../components/CreateStoryModal.vue")['default']>
     'LazyRandomStoryGenerator': LazyComponent<typeof import("../components/RandomStoryGenerator.vue")['default']>
     'LazyStoriesSubnav': LazyComponent<typeof import("../components/StoriesSubnav.vue")['default']>
+    'LazyStoryModal': LazyComponent<typeof import("../components/StoryModal.vue")['default']>
     'LazyNuxtWelcome': LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
     'LazyNuxtLayout': LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
     'LazyNuxtErrorBoundary': LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>
@@ -81,6 +83,7 @@ export const AvatarCreator: typeof import("../components/AvatarCreator.vue")['de
 export const CreateStoryModal: typeof import("../components/CreateStoryModal.vue")['default']
 export const RandomStoryGenerator: typeof import("../components/RandomStoryGenerator.vue")['default']
 export const StoriesSubnav: typeof import("../components/StoriesSubnav.vue")['default']
+export const StoryModal: typeof import("../components/StoryModal.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
 export const NuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -110,6 +113,7 @@ export const LazyAvatarCreator: LazyComponent<typeof import("../components/Avata
 export const LazyCreateStoryModal: LazyComponent<typeof import("../components/CreateStoryModal.vue")['default']>
 export const LazyRandomStoryGenerator: LazyComponent<typeof import("../components/RandomStoryGenerator.vue")['default']>
 export const LazyStoriesSubnav: LazyComponent<typeof import("../components/StoriesSubnav.vue")['default']>
+export const LazyStoryModal: LazyComponent<typeof import("../components/StoryModal.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
 export const LazyNuxtErrorBoundary: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>

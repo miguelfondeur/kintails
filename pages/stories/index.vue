@@ -45,13 +45,22 @@
                     :key="story.id"
                     class="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
                 >
-                    <button
-                        @click="deleteStory(story.id)"
-                        class="absolute top-2 right-2 p-2 text-gray-500 hover:text-red-500 transition-colors"
-                        title="Delete story"
-                    >
-                    <Trash2 class="h-5 w-5" />
-                    </button>
+                    <div class="absolute top-2 right-2 flex space-x-1">
+                        <button
+                            @click="openEditModal(story)"
+                            class="p-2 text-gray-500 hover:text-sky-500 transition-colors"
+                            title="Edit story"
+                        >
+                            <Pencil class="h-5 w-5" />
+                        </button>
+                        <button
+                            @click="deleteStory(story.id)"
+                            class="p-2 text-gray-500 hover:text-red-500 transition-colors"
+                            title="Delete story"
+                        >
+                            <Trash2 class="h-5 w-5" />
+                        </button>
+                    </div>
                     
                     <!-- Card -->
                     <NuxtLink
@@ -76,9 +85,15 @@
             </div>
         </main>
   
-        <CreateStoryModal 
+        <StoryModal 
             :is-open="isCreateModalOpen"
             @close="isCreateModalOpen = false"
+        />
+
+        <StoryModal
+            :is-open="isEditModalOpen"
+            :story="storyToEdit"
+            @close="closeEditModal"
         />
     </div>
 </template>
@@ -86,10 +101,21 @@
   <script setup>
   /* eslint-disable */
   import { ref } from 'vue'
-  import { Home, Plus, Trash2, Wand2 } from 'lucide-vue-next'
+  import { Home, Plus, Trash2, Wand2, Pencil } from 'lucide-vue-next'
   import { useStories } from '~/composables/useStories'
   
   const { stories, isLoading, deleteStory } = useStories()
   const isCreateModalOpen = ref(false)
+  const isEditModalOpen = ref(false)
+  const storyToEdit = ref(null)
 
+  const openEditModal = (story) => {
+    storyToEdit.value = story
+    isEditModalOpen.value = true
+  }
+
+  const closeEditModal = () => {
+    isEditModalOpen.value = false
+    storyToEdit.value = null
+  }
   </script>

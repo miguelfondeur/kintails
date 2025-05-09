@@ -118,6 +118,43 @@ export const useStoriesStore = defineStore('stories', {
         console.error('Error deleting story:', error)
         throw error
       }
+    },
+
+    /**
+     * @param {number} id - The ID of the story to update
+     * @param {Object} storyData - The updated story data
+     */
+    async updateStory(id, storyData) {
+      const client = useSupabaseClient()
+
+      try {
+        const { data, error } = await client
+          .from('stories')
+          .update({
+            family_member: storyData.family_member,
+            author: storyData.author,
+            title: storyData.title,
+            content: storyData.content,
+            avatar_url: storyData.avatar_url,
+            background_color: storyData.background_color
+          })
+          .eq('id', id)
+          .select()
+          .single()
+
+        if (error) throw error
+
+        // Update the story in the local state
+        const index = this.stories.findIndex(story => story.id === id)
+        if (index !== -1) {
+          this.stories[index] = data
+        }
+        
+        return data
+      } catch (error) {
+        console.error('Error updating story:', error)
+        throw error
+      }
     }
   }
 }) 

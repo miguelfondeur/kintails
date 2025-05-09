@@ -14,6 +14,7 @@ export const useStories = () => {
     stories,
     isLoading,
     addStory: store.addStory,
-    deleteStory: store.deleteStory
+    deleteStory: store.deleteStory,
+    updateStory: store.updateStory
   }
 } 
