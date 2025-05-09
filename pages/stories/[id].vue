@@ -1,5 +1,5 @@
 <template>
-  <div :class="[story ? story.background_color : 'bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50', 'min-h-screen py-8']">
+  <div :class="[story ? story.background_color : 'bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50', 'py-8 transition-colors duration-500']">
     <div class="max-w-4xl mx-auto px-4">
       <!-- Loading State -->
       <div v-if="isLoading" class="flex justify-center items-center min-h-[50vh]">

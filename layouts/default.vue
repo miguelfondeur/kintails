@@ -1,8 +1,11 @@
 <template>
-    <div class="min-h-screen bg-gradient-to-br from-sky-50 via-white to-sky-50">
+    <div class="min-h-screen flex flex-col bg-gradient-to-br from-sky-50 via-white to-sky-50">
       <AppHeader />
       <StoriesSubnav v-if="showSubnav" />
-      <slot />
+      <main class="flex-grow">
+        <slot />
+      </main>
+      <AppFooter />
     </div>
   </template>
   

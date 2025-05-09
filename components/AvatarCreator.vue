@@ -230,7 +230,7 @@
   const hairStyles = [
     'bald', 'balding', 'bobBangs', 'bobCut', 'bunUndercut', 'buzzcut',
     'curly', 'curlyBun', 'curlyHighTop', 'fade', 'long', 'mohawk',
-    'pigtails', 'shortCombover', 'straightBun'
+    'pigtails', 'shortCombover', 'straightBun', 'cap', 'beanie'
   ]
   
   const bodyStyles = [

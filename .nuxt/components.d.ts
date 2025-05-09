@@ -12,7 +12,8 @@ type HydrationStrategies = {
 }
 type LazyComponent<T> = (T & DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }>)
 interface _GlobalComponents {
-      'AppHeader': typeof import("../components/AppHeader.vue")['default']
+      'AppFooter': typeof import("../components/AppFooter.vue")['default']
+    'AppHeader': typeof import("../components/AppHeader.vue")['default']
     'AvatarCreator': typeof import("../components/AvatarCreator.vue")['default']
     'CreateStoryModal': typeof import("../components/CreateStoryModal.vue")['default']
     'RandomStoryGenerator': typeof import("../components/RandomStoryGenerator.vue")['default']
@@ -42,7 +43,8 @@ interface _GlobalComponents {
     'Body': typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
     'NuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
-      'LazyAppHeader': LazyComponent<typeof import("../components/AppHeader.vue")['default']>
+      'LazyAppFooter': LazyComponent<typeof import("../components/AppFooter.vue")['default']>
+    'LazyAppHeader': LazyComponent<typeof import("../components/AppHeader.vue")['default']>
     'LazyAvatarCreator': LazyComponent<typeof import("../components/AvatarCreator.vue")['default']>
     'LazyCreateStoryModal': LazyComponent<typeof import("../components/CreateStoryModal.vue")['default']>
     'LazyRandomStoryGenerator': LazyComponent<typeof import("../components/RandomStoryGenerator.vue")['default']>
@@ -78,6 +80,7 @@ declare module 'vue' {
   export interface GlobalComponents extends _GlobalComponents { }
 }
 
+export const AppFooter: typeof import("../components/AppFooter.vue")['default']
 export const AppHeader: typeof import("../components/AppHeader.vue")['default']
 export const AvatarCreator: typeof import("../components/AvatarCreator.vue")['default']
 export const CreateStoryModal: typeof import("../components/CreateStoryModal.vue")['default']
@@ -108,6 +111,7 @@ export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
+export const LazyAppFooter: LazyComponent<typeof import("../components/AppFooter.vue")['default']>
 export const LazyAppHeader: LazyComponent<typeof import("../components/AppHeader.vue")['default']>
 export const LazyAvatarCreator: LazyComponent<typeof import("../components/AvatarCreator.vue")['default']>
 export const LazyCreateStoryModal: LazyComponent<typeof import("../components/CreateStoryModal.vue")['default']>
