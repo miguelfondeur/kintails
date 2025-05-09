@@ -32,10 +32,12 @@ export default defineNuxtConfig({
   },
   
   nitro: {
-    preset: 'netlify',
+    // Use the appropriate preset based on the deployment platform
+    preset: process.env.NETLIFY ? 'netlify' : process.env.VERCEL ? 'vercel' : 'node-server',
+    // Always use 'dist' as the output directory regardless of platform
     output: {
-      dir: '.output',
-      publicDir: '.output/public'
+      dir: 'dist',
+      publicDir: 'dist'
     }
   },
 });
