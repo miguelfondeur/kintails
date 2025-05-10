@@ -24,8 +24,8 @@
             <NuxtLink to="/" class="text-gray-600 hover:text-sky-600 transition-colors">
               Home
             </NuxtLink>
-            <NuxtLink to="/stories" class="text-gray-600 hover:text-sky-600 transition-colors">
-              Stories
+            <NuxtLink to="/about" class="text-gray-600 hover:text-sky-600 transition-colors">
+              About
             </NuxtLink>
             <NuxtLink to="/contact" class="text-gray-600 hover:text-sky-600 transition-colors">
               Give Feedback
