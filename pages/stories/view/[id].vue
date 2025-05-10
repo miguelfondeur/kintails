@@ -31,7 +31,7 @@
                 <p class="text-gray-600">
                   A <span class="font-bold text-gray-900">{{ currentStory.family_member }}</span> story by 
                   <NuxtLink 
-                    :to="`/stories/collections/${encodeURIComponent(currentStory.author)}`" 
+                    :to="`/stories/collections/${encodeURIComponent(currentStory.user_id)}`" 
                     class="font-medium text-sky-600 hover:text-sky-800"
                   >
                     {{ currentStory.author }}
@@ -42,7 +42,7 @@
             
             <div class="flex space-x-2">
               <NuxtLink 
-                to="/stories/collections" 
+                to="/stories/all" 
                 class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
                 <ArrowLeft class="h-4 w-4 mr-1" />
@@ -90,29 +90,95 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { ArrowLeft, ArrowRight } from 'lucide-vue-next'
-import { useStories } from '~/composables/useStories'
+import { useSupabaseClient } from '#imports'
 
 const route = useRoute()
 const router = useRouter()
-const { stories, isLoading } = useStories()
+const client = useSupabaseClient()
 
 // Current story ID
 const currentStoryId = ref(parseInt(route.params.id))
+const isLoading = ref(true)
+const currentStory = ref(null)
+const allStories = ref([])
 
-// Get current story
-const currentStory = computed(() => {
-  return stories.value.find(s => s.id === currentStoryId.value) || null
-})
+// Load the specific story and related stories
+const loadStory = async (id) => {
+  isLoading.value = true
+  try {
+    // Fetch the specific story
+    const { data: story, error } = await client
+      .from('stories')
+      .select('*')
+      .eq('id', id)
+      .single()
+    
+    if (error) {
+      console.error('Error fetching story:', error)
+      currentStory.value = null
+      return
+    }
+    
+    if (!story) {
+      currentStory.value = null
+      return
+    }
+    
+    // Fetch profile data for the author
+    const { data: profile, error: profileError } = await client
+      .from('profiles')
+      .select('username, avatar_seed, avatar_options')
+      .eq('id', story.user_id)
+      .single()
+    
+    // Process the story to format author
+    let authorName = story.author || 'Anonymous'
+    if (!profileError && profile) {
+      authorName = profile.username || authorName
+    }
+    
+    currentStory.value = {
+      ...story,
+      author: authorName,
+      profile: profile || null
+    }
+    
+    // Load more stories for navigation
+    const { data: otherStories, error: otherError } = await client
+      .from('stories')
+      .select('id')
+      .order('created_at', { ascending: false })
+      .limit(20) // Limit to a reasonable number for navigation
+    
+    if (!otherError && otherStories) {
+      allStories.value = otherStories
+    }
+    
+  } catch (error) {
+    console.error('Error loading story:', error)
+    currentStory.value = null
+  } finally {
+    isLoading.value = false
+  }
+}
+
+// Watch for story ID changes to load the correct story
+watch(() => route.params.id, (newId) => {
+  if (newId) {
+    currentStoryId.value = parseInt(newId)
+    loadStory(currentStoryId.value)
+  }
+}, { immediate: true })
 
 // Current index
 const currentIndex = computed(() => {
-  if (!stories.value.length) return -1
-  return stories.value.findIndex(s => s.id === currentStoryId.value)
+  if (!allStories.value.length) return -1
+  return allStories.value.findIndex(s => s.id === currentStoryId.value)
 })
 
 // Check if has previous/next stories
 const hasPrevStory = computed(() => currentIndex.value > 0)
-const hasNextStory = computed(() => currentIndex.value < stories.value.length - 1 && currentIndex.value !== -1)
+const hasNextStory = computed(() => currentIndex.value < allStories.value.length - 1 && currentIndex.value !== -1)
 
 // Format content with better paragraph breaks if it's a single long paragraph
 const formattedContent = computed(() => {
@@ -146,42 +212,24 @@ const formattedContent = computed(() => {
 // Navigation functions
 const showPreviousStory = () => {
   if (hasPrevStory.value) {
-    const prevId = stories.value[currentIndex.value - 1].id
-    currentStoryId.value = prevId
-    updateUrl(prevId)
+    const prevId = allStories.value[currentIndex.value - 1].id
+    router.push(`/stories/view/${prevId}`)
   }
 }
 
 const showNextStory = () => {
   if (hasNextStory.value) {
-    const nextId = stories.value[currentIndex.value + 1].id
-    currentStoryId.value = nextId
-    updateUrl(nextId)
+    const nextId = allStories.value[currentIndex.value + 1].id
+    router.push(`/stories/view/${nextId}`)
   }
 }
-
-// Update URL without navigation
-const updateUrl = (storyId) => {
-  const newPath = `/stories/view/${storyId}`
-  window.history.pushState(
-    { storyId },
-    '',
-    newPath
-  )
-}
-
-// Handle URL changes (browser back/forward buttons)
-watch(() => route.params.id, (newId) => {
-  if (newId && parseInt(newId) !== currentStoryId.value) {
-    currentStoryId.value = parseInt(newId)
-  }
-})
 
 // Handle popstate events for browser back/forward navigation
 onMounted(() => {
   window.addEventListener('popstate', (event) => {
     if (route.params.id) {
       currentStoryId.value = parseInt(route.params.id)
+      loadStory(currentStoryId.value)
     }
   })
 })

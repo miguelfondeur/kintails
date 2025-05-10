@@ -50,7 +50,7 @@
             <span v-if="!linkAuthor">{{ story.author }}</span>
             <NuxtLink 
               v-else
-              :to="`/stories/collections/${encodeURIComponent(story.author)}`" 
+              :to="`/stories/collections/${encodeURIComponent(story.user_id)}`" 
               class="text-sky-600 hover:text-sky-800"
               @click.stop
             >
