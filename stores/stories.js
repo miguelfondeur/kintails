@@ -17,7 +17,11 @@ import { useSupabaseClient, useSupabaseUser } from '#imports'
 export const useStoriesStore = defineStore('stories', {
   state: () => ({
     stories: [],
-    isLoading: true
+    isLoading: true,
+    exploreStories: [],
+    isExploreLoading: true,
+    userStories: [],
+    isUserStoriesLoading: true
   }),
 
   actions: {
@@ -154,6 +158,82 @@ export const useStoriesStore = defineStore('stories', {
       } catch (error) {
         console.error('Error updating story:', error)
         throw error
+      }
+    },
+
+    /**
+     * Load stories from all users for the explore page
+     */
+    async loadExploreStories() {
+      const client = useSupabaseClient()
+      
+      this.isExploreLoading = true
+      try {
+        console.log('Fetching explore stories...')
+        // Get all stories with join to profiles to get the real user info
+        const { data, error } = await client
+          .from('stories')
+          .select(`
+            *,
+            profiles:profiles(
+              username,
+              avatar_seed,
+              avatar_options
+            )
+          `)
+          .order('created_at', { ascending: false })
+
+        if (error) {
+          console.error('Error fetching explore stories:', error)
+          throw error
+        }
+        
+        console.log(`Loaded ${data?.length || 0} explore stories`)
+        this.exploreStories = data || []
+      } catch (error) {
+        console.error('Error loading explore stories:', error)
+        this.exploreStories = []
+      } finally {
+        this.isExploreLoading = false
+      }
+    },
+
+    /**
+     * Load stories from a specific user
+     * @param {string} userId - The ID of the user whose stories to load
+     */
+    async loadUserStories(userId) {
+      const client = useSupabaseClient()
+      
+      this.isUserStoriesLoading = true
+      try {
+        console.log(`Fetching stories for user: ${userId}`)
+        // Get stories from specific user with profile info
+        const { data, error } = await client
+          .from('stories')
+          .select(`
+            *,
+            profiles:profiles(
+              username,
+              avatar_seed,
+              avatar_options
+            )
+          `)
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false })
+
+        if (error) {
+          console.error('Error fetching user stories:', error)
+          throw error
+        }
+        
+        console.log(`Loaded ${data?.length || 0} stories for user ${userId}`)
+        this.userStories = data || []
+      } catch (error) {
+        console.error('Error loading user stories:', error)
+        this.userStories = []
+      } finally {
+        this.isUserStoriesLoading = false
       }
     }
   }

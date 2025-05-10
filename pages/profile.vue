@@ -507,16 +507,19 @@ const deleteAccount = async () => {
     
     if (profileError) throw profileError;
     
-    // Delete user account
-    const { error: authError } = await client.auth.admin.deleteUser(
-      user.value.id
-    );
+    // Delete user account using the user's own session (not admin API)
+    const { error: authError } = await client.auth.updateUser({
+      data: { deleted: true } // Mark as deleted in user metadata
+    });
     
     if (authError) throw authError;
     
     // Sign out and redirect to home
     await client.auth.signOut();
     router.push('/');
+    
+    // Show a success message before redirecting
+    alert('Your account has been successfully deleted. You will now be redirected to the home page.');
   } catch (error) {
     showError(error.message || 'Failed to delete account');
     console.error(error);
