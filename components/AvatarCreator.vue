@@ -20,6 +20,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Skin Color</label>
           <div class="grid grid-cols-6 gap-2">
             <button
+              type="button"
               v-for="color in skinColors"
               :key="color"
               @click="options.skinColor = color"
@@ -37,6 +38,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Hair Style</label>
           <div class="grid grid-cols-4 gap-4">
             <button
+              type="button"
               v-for="style in hairStyles"
               :key="style"
               @click="options.hair = style"
@@ -60,6 +62,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Body Type</label>
           <div class="flex flex-wrap gap-2">
             <button
+              type="button"
               v-for="style in bodyStyles"
               :key="style"
               @click="options.body = style"
@@ -80,6 +83,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Nose Style</label>
           <div class="flex flex-wrap gap-2">
             <button
+              type="button"
               v-for="style in noseStyles"
               :key="style"
               @click="options.nose = style"
@@ -100,6 +104,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Eyes</label>
           <div class="flex flex-wrap gap-2">
             <button
+              type="button"
               v-for="style in eyeStyles"
               :key="style"
               @click="options.eyes = style"
@@ -120,6 +125,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Mouth</label>
           <div class="flex flex-wrap gap-2">
             <button
+              type="button"
               v-for="style in mouthStyles"
               :key="style"
               @click="options.mouth = style"
@@ -140,6 +146,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Facial Hair</label>
           <div class="flex flex-wrap gap-2">
             <button
+              type="button"
               v-for="style in facialHairStyles"
               :key="style"
               @click="options.facialHair = style"
@@ -153,6 +160,7 @@
               {{ style.replace(/([A-Z])/g, ' $1').trim() }}
             </button>
             <button
+              type="button"
               @click="options.facialHair = ''"
               :class="[
                 'px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200',
@@ -171,6 +179,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Hair Color</label>
           <div class="grid grid-cols-6 gap-2">
             <button
+              type="button"
               v-for="color in hairColors"
               :key="color"
               @click="options.hairColor = color"
@@ -188,6 +197,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Clothing Color</label>
           <div class="grid grid-cols-6 gap-2">
             <button
+              type="button"
               v-for="color in clothingColors"
               :key="color"
               @click="options.clothingColor = color"
@@ -205,6 +215,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Background Color</label>
           <div class="grid grid-cols-6 gap-2">
             <button
+              type="button"
               v-for="color in backgroundColors"
               :key="color"
               @click="options.backgroundColor = color"
@@ -311,6 +322,67 @@
   }
   
   defineExpose({
-    getAvatarUrl: () => avatarUrl.value
+    getAvatarUrl: () => avatarUrl.value,
+    setAvatarFromUrl: (url) => {
+      if (!url || !url.includes('dicebear.com')) return false;
+      
+      try {
+        // Extract query parameters from the URL
+        const urlObj = new URL(url);
+        const params = new URLSearchParams(urlObj.search);
+        
+        // Update each option if it exists in the URL
+        if (params.has('skinColor') && skinColors.includes(params.get('skinColor'))) {
+          options.value.skinColor = params.get('skinColor');
+        }
+        
+        if (params.has('hair') && hairStyles.includes(params.get('hair'))) {
+          options.value.hair = params.get('hair');
+        }
+        
+        if (params.has('body') && bodyStyles.includes(params.get('body'))) {
+          options.value.body = params.get('body');
+        }
+        
+        if (params.has('nose') && noseStyles.includes(params.get('nose'))) {
+          options.value.nose = params.get('nose');
+        }
+        
+        if (params.has('eyes') && eyeStyles.includes(params.get('eyes'))) {
+          options.value.eyes = params.get('eyes');
+        }
+        
+        if (params.has('mouth') && mouthStyles.includes(params.get('mouth'))) {
+          options.value.mouth = params.get('mouth');
+        }
+        
+        if (params.has('facialHair')) {
+          const facialHair = params.get('facialHair');
+          if (facialHairStyles.includes(facialHair)) {
+            options.value.facialHair = facialHair;
+          } else if (facialHair === '') {
+            options.value.facialHair = '';
+          }
+        }
+        
+        if (params.has('hairColor') && hairColors.includes(params.get('hairColor'))) {
+          options.value.hairColor = params.get('hairColor');
+        }
+        
+        if (params.has('clothingColor') && clothingColors.includes(params.get('clothingColor'))) {
+          options.value.clothingColor = params.get('clothingColor');
+        }
+        
+        if (params.has('backgroundColor') && backgroundColors.includes(params.get('backgroundColor'))) {
+          options.value.backgroundColor = params.get('backgroundColor');
+        }
+        
+        return true;
+      } catch (error) {
+        console.error('Error parsing avatar URL:', error);
+        return false;
+      }
+    },
+    options // Expose the options ref directly
   })
   </script>

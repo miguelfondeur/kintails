@@ -55,7 +55,7 @@
         <!-- Story content -->
         <transition name="fade" mode="out-in">
           <div :key="currentStory.id" class="p-6 md:p-8 prose prose-sky max-w-none h-[400px] overflow-y-auto">
-            <p>{{ currentStory.content }}</p>
+            <p class="whitespace-pre-line text-lg leading-relaxed text-gray-700">{{ formattedContent }}</p>
           </div>
         </transition>
         
@@ -113,6 +113,35 @@ const currentIndex = computed(() => {
 // Check if has previous/next stories
 const hasPrevStory = computed(() => currentIndex.value > 0)
 const hasNextStory = computed(() => currentIndex.value < stories.value.length - 1 && currentIndex.value !== -1)
+
+// Format content with better paragraph breaks if it's a single long paragraph
+const formattedContent = computed(() => {
+  if (!currentStory.value) return '';
+  
+  const content = currentStory.value.content || '';
+  
+  // If content already has line breaks, return as is
+  if (content.includes('\n')) {
+    return content;
+  }
+  
+  // If it's a short paragraph (less than 200 chars), return as is
+  if (content.length < 200) {
+    return content;
+  }
+  
+  // Otherwise, try to break it into more readable chunks at sentence boundaries
+  const sentences = content.match(/[^.!?]+[.!?]+/g) || [];
+  
+  // Group sentences into paragraphs of 2-3 sentences
+  const paragraphs = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    const paragraph = sentences.slice(i, i + 2).join(' ');
+    paragraphs.push(paragraph);
+  }
+  
+  return paragraphs.join('\n\n');
+})
 
 // Navigation functions
 const showPreviousStory = () => {
